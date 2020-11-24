@@ -13,7 +13,6 @@ from torch.utils.data.distributed import DistributedSampler
 
 import pytorch_lightning as pl
 
-#from dataset import DirDataset, DirDatasetFolds
 from PLS_buildingblocks import DSConv3D, DrdbBlock3D, DecoderBlock
 from config_parser import UserConfigParser
 
@@ -129,15 +128,6 @@ class PLS(pl.LightningModule):
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=self.learning_rate, weight_decay=1e-8)
 
-    # a simple custom collate function, just to show the idea
-    def __my_collate(self, batch):
-        # pad according to max_len
-        batchs = self.pad_inputs(batch)
-        # stack all
-        xs = torch.stack(batchs[0])
-        ys = torch.stack(batchs[1])
-        return xs, ys
-
     def __dataloader(self):
         #dataset = self.hparams.dataset
         #train_ds = DirDatasetFolds(f'./dataset/{dataset}', train=True, augment=self.augment,
@@ -171,61 +161,6 @@ class PLS(pl.LightningModule):
         parser.add_argument('--n_channels', type=int, default=1)
         parser.add_argument('--n_classes', type=int, default=2)
         return parser
-
-    def pad_inputs(self, batch):
-        # find longest sequence
-        max_dim_over_batch = np.amax([x[0].shape for x in batch], axis=0)
-        missing_dim = [int(np.ceil(x / 32)*32 - x) for x in max_dim_over_batch]
-        final_extent = max_dim_over_batch + missing_dim
-        final_batch = []
-        batch_x = []
-        batch_y = []
-        for x, y in batch:
-            # if len(x.shape) == 4:
-            #     new_x = np.pad(x, ((0, 0), (0, missing_dim[1]),
-            #                        (0, missing_dim[2]),
-            #                        (0, missing_dim[3])), mode='edge')
-            # else:
-            #     new_x = np.pad(x, ((0, missing_dim[0]),
-            #                        (0, missing_dim[1]),
-            #                        (0, missing_dim[2])), mode='edge')
-            #
-            # if len(y.shape) == 4:
-            #     new_y = np.pad(y, ((0, 0), (0, missing_dim[1]),
-            #                        (0, missing_dim[2]),
-            #                        (0, missing_dim[3])), mode='edge')
-            # else:
-            #     new_y = np.pad(y, ((0, missing_dim[0]),
-            #                        (0, missing_dim[1]),
-            #                        (0, missing_dim[2])), mode='edge')
-            if len(x.shape) == 4:
-                new_x = np.pad(x, ((0, 0), (0, final_extent[1]-x.shape[1]),
-                                   (0, final_extent[2]-x.shape[2]),
-                                   (0, final_extent[3]-x.shape[3])), mode='edge')
-            else:
-                new_x = np.pad(x, ((0, final_extent[1]-x.shape[0]),
-                                   (0, final_extent[2]-x.shape[1]),
-                                   (0, final_extent[3]-x.shape[2])), mode='edge')
-
-            if len(y.shape) == 4:
-                new_y = np.pad(y, ((0, 0), (0, final_extent[1]-y.shape[1]),
-                                   (0, final_extent[2]-y.shape[2]),
-                                   (0, final_extent[3]-y.shape[3])), mode='edge')
-            else:
-                new_y = np.pad(y, ((0, final_extent[1]-y.shape[0]),
-                                   (0, final_extent[2]-y.shape[1]),
-                                   (0, final_extent[3]-y.shape[2])), mode='edge')
-
-            #final_x = torch.from_numpy(new_x).half()
-            final_x = torch.from_numpy(new_x).float()
-            final_y = torch.from_numpy(new_y).long()
-            final_y = F.one_hot(final_y, num_classes=self.n_classes).permute(3, 0, 1, 2).contiguous()
-            final_batch.append([final_x, final_y])
-            batch_x.append(final_x)
-            batch_y.append(final_y)
-
-        #return final_batch
-        return batch_x, batch_y
 
 
 def flatten(tensor):
