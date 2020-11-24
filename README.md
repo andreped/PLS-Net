@@ -10,7 +10,7 @@ If the source code is used in any scientific publication, please cite the follow
 * Lee, Hoileong, T. Matin, F. Gleeson and V. Grau. “Efficient 3D Fully Convolutional Networks for Pulmonary Lobe Segmentation in CT Images.” ArXiv abs/1909.07474 (2019): n. pag.
 * Bouget, D., André Pedersen, Sayied Abdol Mohieb Hosainey, Johanna Vanel, O. Solheim and I. Reinertsen. “Fast meningioma segmentation in T1-weighted MRI volumes using a lightweight 3D deep learning architecture.” ArXiv abs/2010.07002 (2020): n. pag.
 
-## Requirements:
+### Requirements:
 * torch 1.3.1 (CUDA 10.0)
 * torchvision 0.4.2
 * (including stuff like numpy and config_parser, but should be less dependent on those)
