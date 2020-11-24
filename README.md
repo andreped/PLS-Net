@@ -1,5 +1,5 @@
 # PLS-Net (PyTorch)
-Reimplementation of the PLS-Net architecture used for lung lobe segmentation proposed by Lee et al. (2019).
+Reimplementation of the PLS-Net architecture used for lung lobe segmentation in CT proposed by Lee et al. (2019).
 
 The original paper can be found here: https://arxiv.org/abs/1909.07474
 
