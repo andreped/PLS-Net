@@ -79,4 +79,3 @@ class DecoderBlock(nn.Module):
         out = self.ds_conv(x)
         out = self.upsampled(out)
         return out
-
