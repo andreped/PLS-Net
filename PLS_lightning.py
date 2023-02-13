@@ -10,6 +10,7 @@ from torch.utils.data.distributed import DistributedSampler
 import pytorch_lightning as pl
 from PLS_buildingblocks import DSConv3D, DrdbBlock3D, DecoderBlock
 from config_parser import UserConfigParser
+from utils import compute_dice_loss
 
 
 class PLS(pl.LightningModule):
