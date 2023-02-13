@@ -19,4 +19,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Test usage
-        run: python -c "from PLS_pytorch import PLS_pytorch; network = PLS_pytorch()"
+        run: python -c "from PLS_pytorch import PLS; network = PLS()"
