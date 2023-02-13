@@ -23,8 +23,8 @@ pip install -r requirements.txt
 
 #### Define network:
 ```
-from PLS_pytorch import PLS_pytorch
-network = PLS_pytorch()
+from PLS_pytorch import PLS
+network = PLS()
 ```
 
 (Alternatively) in PyTorch-Lightning:
