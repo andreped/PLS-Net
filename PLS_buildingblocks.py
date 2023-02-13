@@ -9,17 +9,13 @@ class DSConv3D(nn.Module):
         self.dConv = nn.Conv3d(in_chans, in_chans, kernel_size=3, stride=dstride, padding=padding,
                                dilation=dilation, groups=in_chans, bias=False)
         self.conv = nn.Conv3d(in_chans, out_chans, kernel_size=1, dilation=1, stride=1, bias=False)
-        self.norm = nn.BatchNorm3d(out_chans, momentum=0.01) #eps=1e-3
+        self.norm = nn.BatchNorm3d(out_chans, momentum=0.01)
         self.relu = nn.ReLU(inplace=True)
-        #self.avgpool = nn.AvgPool3d(kernel_size=3, stride=dstride)
 
     def forward(self, x):
-        #x = x.float()
         out = self.dConv(x)
         out = self.conv(out)
-        #out = self.relu(self.norm(out))
         out = self.relu(out)
-        #out = self.avgpool(out)
         return out
 
 
@@ -49,7 +45,6 @@ class DrdbBlock3D(nn.Module):
             out = cp.checkpoint(self.bottleneck_function, x)
         else:
             out = self.bottleneck_function(x)
-        #out = self.avgpool(out)
         return out
 
     def bottleneck_function(self, x):
