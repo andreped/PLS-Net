@@ -8,20 +8,26 @@
 [![Paper](https://zenodo.org/badge/DOI/10.1117/1.JMI.8.2.024002.svg)](https://doi.org/10.1117/1.JMI.8.2.024002)
 </div>
 
-## References
-The original paper can be found here: https://arxiv.org/abs/1909.07474
+The implementation was made for this study by [Bouget et al. (2021)](https://doi.org/10.1117/1.JMI.8.2.024002). The original implementation can be found [here](https://arxiv.org/abs/1909.07474).
 
-The implementation was used for this study by Bouget et al (2021):
-https://doi.org/10.1117/1.JMI.8.2.024002
+The implementation was tested in Python 3.6 with CUDA 10.0.
 
-## Requirements
-* torch 1.3.1
-* torchvision 0.4.2
-* pytorch-lightning 0.7.3
+## Usage
 
-Tested with CUDA 10.0.
+#### Clone repo and install requirements:
+```
+git clone git+https://github.com/andreped/PLS-Net
+cd "PLS-Net"
+pip install -r requirements.txt
+```
+
+#### Define network:
+```
+from PLS_pytorch import PLS_pytorch
+network = PLS_pytorch()
+```
 
 ## How to cite
 If the source code is used in any scientific publication, please, cite the following papers:
-* Lee, Hoileong, T. Matin, F. Gleeson and V. Grau. “Efficient 3D Fully Convolutional Networks for Pulmonary Lobe Segmentation in CT Images.” ArXiv abs/1909.07474 (2019): n. pag.
+* Lee, Hoileong, T. Matin, F. Gleeson and V. Grau. “Efficient 3D Fully Convolutional Networks for Pulmonary Lobe Segmentation in CT Images.” arXiv abs/1909.07474 (2019): n. pag.
 * David Bouget, André Pedersen, Sayied Abdol Mohieb Hosainey, Johanna Vanel, Ole Solheim, Ingerid Reinertsen, "Fast meningioma segmentation in T1-weighted magnetic resonance imaging volumes using a lightweight 3D deep learning architecture," J. Med. Imag. 8(2) 024002 (26 March 2021) https://doi.org/10.1117/1.JMI.8.2.024002
