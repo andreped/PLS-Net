@@ -1,3 +1,12 @@
+<div align="center">
+<img src="assets/hjelde2020lobe.png" width="800">
+<h1 align="center">PLS-Net (PyTorch)</h1>
+<h3 align="center">Reimplementation of the PLS-Net architecture used for lung lobe segmentation in CT proposed by Lee et al. (2019).</h3>
+
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Paper](https://zenodo.org/badge/DOI/10.1117/1.JMI.8.2.024002.svg)](https://doi.org/10.1117/1.JMI.8.2.024002)
+</div>
+
 # PLS-Net (PyTorch)
 Reimplementation of the PLS-Net architecture used for lung lobe segmentation in CT proposed by Lee et al. (2019).
 
