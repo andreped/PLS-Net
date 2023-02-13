@@ -16,14 +16,14 @@ class PLS(pl.LightningModule):
     def __init__(self, hparams):
         super(PLS, self).__init__()
         self.hparams = hparams
-        self.n_channels = hparams.n_channels # hparams.n_channels, hparams['n_channels']
-        self.n_classes = hparams.n_classes  # hparams.n_classes, hparams['n_classes']
+        self.n_channels = hparams.n_channels
+        self.n_classes = hparams.n_classes
         self.current_fold = 0
 
         user_config = UserConfigParser()
         self.batch_size = user_config.train_batch_size
         self.learning_rate = user_config.train_learning_rate
-        self.augment = True     # only for train data
+        self.augment = True  # only for train data
         self.cross_val_file = user_config.train_cross_validation_file
         self.dataset_path = user_config.train_dataset_path
 
@@ -60,24 +60,23 @@ class PLS(pl.LightningModule):
     def forward(self, x):
         # ENCODER
         # l = 1
-        # print('\nInput shape: ', x.shape)
         x = x
         input = x
         out = self.ds_conv_1(x)
-        downsampled_1 = F.interpolate(input, scale_factor=0.5, mode='trilinear', align_corners=False)  # .float()
+        downsampled_1 = F.interpolate(input, scale_factor=0.5, mode='trilinear', align_corners=False)
         out = torch.cat([out, downsampled_1], 1)
         out_l1 = self.drdb_1(out)
 
         # l = 2
         out = self.ds_conv_2(out_l1)
-        downsampled_2 = F.interpolate(input, scale_factor=0.25, mode='trilinear', align_corners=False)  # .float()
+        downsampled_2 = F.interpolate(input, scale_factor=0.25, mode='trilinear', align_corners=False)
         out = torch.cat([out, downsampled_2], 1)
         out = self.drdb_2_1(out)
         out_l2 = self.drdb_2_2(out)
 
         # l = 3
         out = self.ds_conv_3(out_l2)
-        downsampled_3 = F.interpolate(input, scale_factor=0.125, mode='trilinear', align_corners=False)  # .float()
+        downsampled_3 = F.interpolate(input, scale_factor=0.125, mode='trilinear', align_corners=False)
         out = torch.cat([out, downsampled_3], 1)
         out = self.drdb_3_1(out)
         out = self.drdb_3_2(out)
@@ -90,10 +89,8 @@ class PLS(pl.LightningModule):
         out = self.decoder_l2(out)
         out = torch.cat([out, self.ds_bridge_l1(out_l1)], 1)
         out = self.decoder_l1(out)
-        # out = self.softmax(self.decoder_l0(out))
         out = self.decoder_l0(out)
         out = self.softmax(out)
-        # print('PLS out: ', out.shape)
 
         return out
 
@@ -101,18 +98,13 @@ class PLS(pl.LightningModule):
         x, y = batch
         y_hat = self.forward(x)
         loss = compute_dice_loss(y_hat, y)
-        # loss = F.cross_entropy(y_hat, y, ignore_index=0) if self.n_classes > 1 else \
-        #     F.binary_cross_entropy_with_logits(y_hat, y)
         tensorboard_logs = {'train_loss': loss}
         return {'loss': loss, 'log': tensorboard_logs}
 
     def validation_step(self, batch, batch_nb):
         x, y = batch
-        #print("Data type is {} and labels type is {}".format(x.dtype, y.dtype))
         y_hat = self.forward(x)
         loss = compute_dice_loss(y_hat, y)
-        # loss = F.cross_entropy(y_hat, y, ignore_index=0) if self.n_classes > 1 else \
-        #     F.binary_cross_entropy_with_logits(y_hat, y)
         return {'val_loss': loss}
 
     def validation_epoch_end(self, outputs):
