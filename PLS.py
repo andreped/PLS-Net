@@ -1,8 +1,5 @@
-import os
-import logging
 from argparse import ArgumentParser
 from collections import OrderedDict
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -10,9 +7,7 @@ import torchvision.transforms as transforms
 from torch import optim
 from torch.utils.data import DataLoader, random_split
 from torch.utils.data.distributed import DistributedSampler
-
 import pytorch_lightning as pl
-
 from PLS_buildingblocks import DSConv3D, DrdbBlock3D, DecoderBlock
 from config_parser import UserConfigParser
 
@@ -129,11 +124,6 @@ class PLS(pl.LightningModule):
         return torch.optim.Adam(self.parameters(), lr=self.learning_rate, weight_decay=1e-8)
 
     def __dataloader(self):
-        #dataset = self.hparams.dataset
-        #train_ds = DirDatasetFolds(f'./dataset/{dataset}', train=True, augment=self.augment,
-        #                           cross_validation_file=self.cross_val_file)
-        #val_ds = DirDatasetFolds(f'./dataset/{dataset}', val=True, augment=False,
-        #                         cross_validation_file=self.cross_val_file)
         train_ds = DirDatasetFolds(self.dataset_path, train=True, augment=self.augment,
                                    cross_validation_file=self.cross_val_file, fold=self.current_fold)
         val_ds = DirDatasetFolds(self.dataset_path, val=True, augment=False,
@@ -214,4 +204,3 @@ def compute_per_channel_dice(input, target, epsilon=1e-6, weight=None, exclude_b
 
 def compute_dice_loss(input, target, epsilon=1e-6, weight=None):
     return 1 - compute_per_channel_dice(input, target)
-
