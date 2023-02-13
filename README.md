@@ -27,6 +27,14 @@ from PLS_pytorch import PLS_pytorch
 network = PLS_pytorch()
 ```
 
+(Alternatively) in PyTorch-Lightning:
+```
+from PLS_lightning import PLS
+network = PLS()
+```
+
+Disclaimer: Note that the Lightning implementation contains some hardcoded setup and Dataloaders, and thus only serves as an example. However, PyTorch implementation should work out-of-the-box.
+
 ## How to cite
 If the source code is used in any scientific publication, please, cite the following papers:
 * Lee, Hoileong, T. Matin, F. Gleeson and V. Grau. “Efficient 3D Fully Convolutional Networks for Pulmonary Lobe Segmentation in CT Images.” arXiv abs/1909.07474 (2019): n. pag.
