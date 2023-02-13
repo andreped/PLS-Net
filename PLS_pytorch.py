@@ -8,7 +8,7 @@ from PLS_buildingblocks import DSConv3D, DrdbBlock3D, DecoderBlock
 
 class PLS(nn.Module):
     def __init__(self, nb_classes: int=2):
-        super(PLS_pytorch, self).__init__()
+        super(PLS, self).__init__()
         self.nb_classes = nb_classes
 
         # Network specific arguments
