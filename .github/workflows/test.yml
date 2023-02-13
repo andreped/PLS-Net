@@ -1,0 +1,21 @@
+name: test
+
+on:
+  push:
+    - "*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with
+        python-version: 3.8
+    
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Test usage
+      run: python -c "import from PLS_pytorch import PLS_pytorch; network = PLS_pytorch()"
