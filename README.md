@@ -61,6 +61,6 @@ If the source code is used in any scientific publication, please, cite the follo
   copyright = {arXiv.org perpetual, non-exclusive license},
   keywords = {Image and Video Processing (eess.IV), Computer Vision and Pattern Recognition (cs.CV), FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Computer and information sciences, FOS: Computer and information sciences},
   doi = {10.48550/ARXIV.1909.07474},
-  url = {https://arxiv.org/abs/1909.07474},
+  url = {https://arxiv.org/abs/1909.07474}
 }
 ```
