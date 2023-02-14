@@ -10,9 +10,9 @@
 
 The implementation was made for this study by [Bouget et al. (2021)](https://doi.org/10.1117/1.JMI.8.2.024002). The original implementation can be found [here](https://arxiv.org/abs/1909.07474).
 
-The implementation was tested in Python 3.6 with CUDA 10.0.
-
 ## Usage
+
+The source code was tested in Python 3.6 with CUDA 10.0.
 
 #### Clone repo and install requirements:
 ```
