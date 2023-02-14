@@ -38,7 +38,6 @@ class DrdbBlock3D(nn.Module):
                                   dilation=4, dstride=1, padding=4)
 
         self.conv = nn.Conv3d(in_chans + growth_rate * 4, self.out_chans, kernel_size=1)
-        #self.avgpool = nn.AvgPool3d(kernel_size=3)
 
     def forward(self, x):
         if self.memory_efficient:
