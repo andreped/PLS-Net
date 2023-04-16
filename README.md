@@ -10,18 +10,18 @@
 
 The implementation was made for this study by [Bouget et al. (2021)](https://doi.org/10.1117/1.JMI.8.2.024002). The original implementation can be found [here](https://arxiv.org/abs/1909.07474).
 
-## Usage
+## [Usage](https://github.com/andreped/PLS-Net#usage)
 
 The source code was tested in Python 3.6 with CUDA 10.0.
 
-### Clone repo and install requirements:
+### [Clone repo and install requirements](https://github.com/andreped/PLS-Net#clone-repo-and-install-requirements)
 ```
 git clone git+https://github.com/andreped/PLS-Net
 cd "PLS-Net"
 pip install -r requirements.txt
 ```
 
-### Define network:
+### [Define network](https://github.com/andreped/PLS-Net#define-network)
 ```
 from PLS_pytorch import PLS
 network = PLS()
@@ -35,7 +35,7 @@ network = PLS()
 
 Disclaimer: Note that the Lightning implementation contains some hardcoded setup and Dataloaders, and thus only serves as an example. However, PyTorch implementation should work out-of-the-box.
 
-## How to cite
+## [How to cite](https://github.com/andreped/PLS-Net#how-to-cite)
 If the source code is used in any scientific publication, please, cite the following papers:
 ```
 @article{bouget2021code,
